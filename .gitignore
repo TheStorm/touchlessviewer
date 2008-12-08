@@ -1,0 +1,6 @@
+bin
+obj
+*.cache
+*results.xml
+*.suo
+*.zip
