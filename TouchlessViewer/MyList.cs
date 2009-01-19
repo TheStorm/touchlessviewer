@@ -5,11 +5,11 @@ using System.Text;
 
 namespace TouchlessViewer
 {
-    class MyList<T> : List<T>
+    class MyList<MyImage> : List<MyImage>
     {
         private int index = -1;
 
-        public T Next()
+        public MyImage Next()
         {
             if (++index >= this.Count)
                 index = 0;
@@ -17,7 +17,7 @@ namespace TouchlessViewer
             return this[index];
         }
 
-        public T Previous()
+        public MyImage Previous()
         {
             if(--index <= 0)
                 index = this.Count - 1;

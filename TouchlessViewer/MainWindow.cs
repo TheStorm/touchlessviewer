@@ -17,9 +17,16 @@ namespace TouchlessViewer
         private MyList<MyImage> _files;
         private Image tmpImg;
 
-        public MainWindow()
+        public MainWindow(string[] args)
         {
             InitializeComponent();
+
+            /* check if argument is given and load corresponding file */
+            if (args.Length == 1 && args[0] != "")
+            {
+                tb_path.Text = Path.GetDirectoryName(args[0]);
+                loadDirectory(args[0]);
+            }
         }
 
         private void btn_path_Click(object sender, EventArgs e)
@@ -29,10 +36,45 @@ namespace TouchlessViewer
 
         private void btn_load_Click(object sender, EventArgs e)
         {
+            loadDirectory();
+        }
+
+        /* load directory from textbox and show first image */
+        private void loadDirectory()
+        {
             try
             {
                 loadFiles();
                 showImage(_files.Next());
+            }
+            catch (ArgumentException ae)
+            {
+                showError(ae.Message);
+            }
+        }
+
+        /* load directory from argument and show image referenced in parameter */
+        private void loadDirectory(string filename)
+        {
+            try
+            {
+                loadFiles();
+
+                int count = 0;
+                bool found = false;
+                MyImage act = null;
+                while (!found)
+                {
+                    act = _files.Next();
+                    if (act.Filename == filename)
+                        found = true;
+
+                    ++count;
+                    if (count == _files.Count)
+                        throw new ArgumentException("File not found");
+                }
+
+                showImage(act);
             }
             catch (ArgumentException ae)
             {
