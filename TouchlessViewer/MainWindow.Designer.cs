@@ -35,12 +35,14 @@
             this.pictureBoxImage = new System.Windows.Forms.PictureBox();
             this.btn_next = new System.Windows.Forms.Button();
             this.btn_previous = new System.Windows.Forms.Button();
+            this.panelMainControls = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
+            this.panelMainControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_path
             // 
-            this.tb_path.Location = new System.Drawing.Point(12, 679);
+            this.tb_path.Location = new System.Drawing.Point(12, 22);
             this.tb_path.Name = "tb_path";
             this.tb_path.Size = new System.Drawing.Size(378, 20);
             this.tb_path.TabIndex = 0;
@@ -48,7 +50,7 @@
             // lbl_path
             // 
             this.lbl_path.AutoSize = true;
-            this.lbl_path.Location = new System.Drawing.Point(9, 663);
+            this.lbl_path.Location = new System.Drawing.Point(9, 6);
             this.lbl_path.Name = "lbl_path";
             this.lbl_path.Size = new System.Drawing.Size(29, 13);
             this.lbl_path.TabIndex = 1;
@@ -56,7 +58,7 @@
             // 
             // btn_path
             // 
-            this.btn_path.Location = new System.Drawing.Point(396, 677);
+            this.btn_path.Location = new System.Drawing.Point(396, 20);
             this.btn_path.Name = "btn_path";
             this.btn_path.Size = new System.Drawing.Size(101, 23);
             this.btn_path.TabIndex = 2;
@@ -66,7 +68,7 @@
             // 
             // btn_load
             // 
-            this.btn_load.Location = new System.Drawing.Point(711, 677);
+            this.btn_load.Location = new System.Drawing.Point(696, 20);
             this.btn_load.Name = "btn_load";
             this.btn_load.Size = new System.Drawing.Size(75, 23);
             this.btn_load.TabIndex = 3;
@@ -77,15 +79,15 @@
             // pictureBoxImage
             // 
             this.pictureBoxImage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pictureBoxImage.Location = new System.Drawing.Point(1, 0);
+            this.pictureBoxImage.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxImage.Name = "pictureBoxImage";
-            this.pictureBoxImage.Size = new System.Drawing.Size(795, 647);
+            this.pictureBoxImage.Size = new System.Drawing.Size(779, 395);
             this.pictureBoxImage.TabIndex = 4;
             this.pictureBoxImage.TabStop = false;
             // 
             // btn_next
             // 
-            this.btn_next.Location = new System.Drawing.Point(630, 677);
+            this.btn_next.Location = new System.Drawing.Point(615, 20);
             this.btn_next.Name = "btn_next";
             this.btn_next.Size = new System.Drawing.Size(75, 23);
             this.btn_next.TabIndex = 5;
@@ -95,7 +97,7 @@
             // 
             // btn_previous
             // 
-            this.btn_previous.Location = new System.Drawing.Point(549, 677);
+            this.btn_previous.Location = new System.Drawing.Point(534, 20);
             this.btn_previous.Name = "btn_previous";
             this.btn_previous.Size = new System.Drawing.Size(75, 23);
             this.btn_previous.TabIndex = 6;
@@ -103,24 +105,37 @@
             this.btn_previous.UseVisualStyleBackColor = true;
             this.btn_previous.Click += new System.EventHandler(this.btn_previous_Click);
             // 
+            // panelMainControls
+            // 
+            this.panelMainControls.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.panelMainControls.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelMainControls.Controls.Add(this.tb_path);
+            this.panelMainControls.Controls.Add(this.btn_previous);
+            this.panelMainControls.Controls.Add(this.lbl_path);
+            this.panelMainControls.Controls.Add(this.btn_next);
+            this.panelMainControls.Controls.Add(this.btn_path);
+            this.panelMainControls.Controls.Add(this.btn_load);
+            this.panelMainControls.Location = new System.Drawing.Point(12, 649);
+            this.panelMainControls.Margin = new System.Windows.Forms.Padding(0);
+            this.panelMainControls.Name = "panelMainControls";
+            this.panelMainControls.Size = new System.Drawing.Size(780, 55);
+            this.panelMainControls.TabIndex = 7;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(803, 714);
-            this.Controls.Add(this.btn_previous);
-            this.Controls.Add(this.btn_next);
+            this.Controls.Add(this.panelMainControls);
             this.Controls.Add(this.pictureBoxImage);
-            this.Controls.Add(this.btn_load);
-            this.Controls.Add(this.btn_path);
-            this.Controls.Add(this.lbl_path);
-            this.Controls.Add(this.tb_path);
             this.Name = "MainWindow";
             this.Text = "TouchlessViewer";
+            this.Resize += new System.EventHandler(this.MainWindow_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
+            this.panelMainControls.ResumeLayout(false);
+            this.panelMainControls.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -133,6 +148,7 @@
         private System.Windows.Forms.PictureBox pictureBoxImage;
         private System.Windows.Forms.Button btn_next;
         private System.Windows.Forms.Button btn_previous;
+        private System.Windows.Forms.Panel panelMainControls;
     }
 }
 

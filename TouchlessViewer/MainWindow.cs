@@ -30,6 +30,8 @@ namespace TouchlessViewer
             }
         }
 
+
+
         private void btn_path_Click(object sender, EventArgs e)
         {
             tb_path.Text = getFolderDialog("Bitte Pfad zu den Bildern auswählen", tb_path.Text);
@@ -239,6 +241,29 @@ namespace TouchlessViewer
             return new Size(
                 (int)(currentImageWidth * scaleImageMultiplier),
                 (int)(currentImageHeight * scaleImageMultiplier));
+        }
+
+        /**
+         * assure that pictureBox always fits window
+         */
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            this.positionPictureBox();
+            this.positionMainControls();
+        }
+
+        private void positionPictureBox()
+        {
+            this.pictureBoxImage.Width = this.Width;
+            this.pictureBoxImage.Height = this.Height - 100;
+            this.pictureBoxImage.Location = new System.Drawing.Point(0, 0);
+        }
+
+        private void positionMainControls()
+        {
+            int locationX = (int)((this.Width - this.panelMainControls.Width) / 2);
+            int locationY = this.Height - this.panelMainControls.Height - 40;
+            this.panelMainControls.Location = new System.Drawing.Point(locationX, locationY);
         }
     }
 }
