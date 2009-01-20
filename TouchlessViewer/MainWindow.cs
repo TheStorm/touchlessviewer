@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace TouchlessViewer
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : KryptonForm
     {
         private MyList<MyImage> _files;
         private Image tmpImg;
