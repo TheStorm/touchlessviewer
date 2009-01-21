@@ -67,17 +67,24 @@ namespace TouchlessViewer
         }
 
         #region Resizing and positioning of MainWindow & PictureBox
-        private void MainWindow_Resize(object sender, EventArgs e)
+        private void MainWindow_ResizeBegin(object sender, EventArgs e)
+        {
+            // avoid "jumping around" when image is centered before resizing
+            this.Rotator.PictureBox.SizeMode = PictureBoxSizeMode.Normal;
+        }
+
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             this.PositionPictureBox();
-            this.pictureBoxImage.Refresh();
+            this.Rotator.PictureBox.Refresh();
             this.Rotator.Show();
+            this.Rotator.PictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
         private void PositionPictureBox()
         {
             this.pictureBoxImage.Width = this.ClientSize.Width;
-            this.pictureBoxImage.Height = this.ClientSize.Height - this.MainMenuStrip.Height;
+            this.pictureBoxImage.Height = this.ClientSize.Height - this.MainMenuStrip.Height - this.statusStrip.Height;
             this.pictureBoxImage.Location = new System.Drawing.Point(0, this.MainMenuStrip.Height);
         }
         #endregion
@@ -149,7 +156,7 @@ namespace TouchlessViewer
         private void fileChangeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "Please select a directory";
+            dialog.Description = "Please select a directory.";
 
             if(this.Rotator != null)
                 dialog.SelectedPath = this.Rotator.ImagePath;
@@ -165,12 +172,25 @@ namespace TouchlessViewer
         {
             Application.Exit();
         }
-        #endregion
+
+        private void applicationSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ApplicationSettingsWindow applicationSettings = new ApplicationSettingsWindow();
+            applicationSettings.ShowDialog();
+        }
+
+        private void cameraSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CameraSettingsWindow cameraSettings = new CameraSettingsWindow();
+            cameraSettings.ShowDialog();
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutWindow aboutWin = new AboutWindow();
-            aboutWin.ShowDialog();
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
         }
+        #endregion
+
     }
 }

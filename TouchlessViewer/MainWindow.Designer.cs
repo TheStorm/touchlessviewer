@@ -38,6 +38,7 @@
             this.cameraSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +49,6 @@
             this.pictureBoxImage.Location = new System.Drawing.Point(12, 121);
             this.pictureBoxImage.Name = "pictureBoxImage";
             this.pictureBoxImage.Size = new System.Drawing.Size(779, 395);
-            this.pictureBoxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxImage.TabIndex = 4;
             this.pictureBoxImage.TabStop = false;
             // 
@@ -101,14 +101,16 @@
             // applicationSettingsToolStripMenuItem
             // 
             this.applicationSettingsToolStripMenuItem.Name = "applicationSettingsToolStripMenuItem";
-            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.applicationSettingsToolStripMenuItem.Text = "Application";
+            this.applicationSettingsToolStripMenuItem.Click += new System.EventHandler(this.applicationSettingsToolStripMenuItem_Click);
             // 
             // cameraSettingsToolStripMenuItem
             // 
             this.cameraSettingsToolStripMenuItem.Name = "cameraSettingsToolStripMenuItem";
-            this.cameraSettingsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cameraSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cameraSettingsToolStripMenuItem.Text = "Camera";
+            this.cameraSettingsToolStripMenuItem.Click += new System.EventHandler(this.cameraSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -121,25 +123,35 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.statusStrip.Location = new System.Drawing.Point(0, 692);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(803, 22);
+            this.statusStrip.TabIndex = 6;
             // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(803, 714);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.pictureBoxImage);
             this.Controls.Add(this.mainMenuStrip);
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "MainWindow";
+            this.ResizeBegin += new System.EventHandler(this.MainWindow_ResizeBegin);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragEnter);
-            this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
+            this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
@@ -160,6 +172,7 @@
         private System.Windows.Forms.ToolStripMenuItem applicationSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cameraSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip;
     }
 }
 
