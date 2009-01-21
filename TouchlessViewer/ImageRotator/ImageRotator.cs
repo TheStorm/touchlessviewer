@@ -145,7 +145,7 @@ namespace TouchlessViewer
             int index = this.Images.FindIndex(image => image == filename);
             if (index < 0)
             {
-                throw new Exception("Filename not found in image list.");
+                throw new ArgumentException("Filename not found in image list.");
             }
             else
             {
