@@ -7,13 +7,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using ComponentFactory.Krypton.Toolkit;
 
 namespace TouchlessViewer
 {
-    public partial class MainWindow : KryptonForm
+    public partial class MainWindow : Form
     {
         private ImageRotator Rotator;
         public List<string> AllowedExtensions;
@@ -23,13 +24,15 @@ namespace TouchlessViewer
         {
             InitializeComponent();
 
+            this.ChangeTitle("No images loaded");
+            this.PositionPictureBox();
+
             this.AllowedExtensions = new List<string>();
             this.AllowedExtensions.Add(".jpg");
             this.AllowedExtensions.Add(".png");
             this.AllowedExtensions.Add(".gif");
             this.AllowedExtensions.Add(".bmp");
 
-            //string filename = null;
             if (args.Length == 1 && args[0] != "")
             {
                 FileInfo file = new FileInfo(args[0]);
@@ -40,12 +43,18 @@ namespace TouchlessViewer
             }
         }
 
+        private void ChangeTitle(string title)
+        {
+            this.Text = "TouchLess Viewer - " + title;
+        }
+
         private void loadRotator(string path, string filename)
         {
             this.Rotator = new ImageRotator();
             this.Rotator.ImagePath = path;
             this.Rotator.AllowedExtensions = this.AllowedExtensions;
             this.Rotator.PictureBox = this.pictureBoxImage;
+            this.Rotator.FormTitle = this.ChangeTitle;
             this.Rotator.LoadImages();
 
             if (filename != null)
@@ -55,121 +64,83 @@ namespace TouchlessViewer
             this._rotatorLoaded = true;
         }
 
-        private void btn_path_Click(object sender, EventArgs e)
-        {
-            tb_path.Text = getFolderDialog("Bitte Pfad zu den Bildern auswählen", tb_path.Text);
-        }
-
-        private void btn_load_Click(object sender, EventArgs e)
-        {
-            //loadDirectory();
-        }
-
-        /* load directory from textbox and show first image */
-        //private void loadDirectory()
-        //{
-        //    try
-        //    {
-        //        loadFiles();
-        //        showImage(_files.Next());
-        //    }
-        //    catch (ArgumentException ae)
-        //    {
-        //        showError(ae.Message);
-        //    }
-        //}
-
-        /* load directory from argument and show image referenced in parameter */
-        //private void loadDirectory(string filename)
-        //{
-        //    try
-        //    {
-        //        loadFiles();
-
-        //        int count = 0;
-        //        bool found = false;
-        //        MyImage act = null;
-        //        while (!found)
-        //        {
-        //            act = _files.Next();
-        //            if (act.Filename == filename)
-        //                found = true;
-
-        //            ++count;
-        //            if (count == _files.Count)
-        //                throw new ArgumentException("File not found");
-        //        }
-
-        //        showImage(act);
-        //    }
-        //    catch (ArgumentException ae)
-        //    {
-        //        showError(ae.Message);
-        //    }
-        //}
-
-        private void btn_previous_Click(object sender, EventArgs e)
-        {
-            this.Rotator.ShowPrevious();
-        }
-
-        private void btn_next_Click(object sender, EventArgs e)
-        {
-            this.Rotator.ShowNext();
-        }
-
-        private void showError(string message)
-        {
-            MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private string getFolderDialog(string Description, string oldpath)
-        {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = Description;
-            dialog.SelectedPath = oldpath;
-            dialog.ShowDialog();
-            return dialog.SelectedPath;
-        }
-
-
-
-        /**
-         * assure that pictureBox always fits window
-         */
+        #region Resizing and positioning of MainWindow & PictureBox
         private void MainWindow_Resize(object sender, EventArgs e)
         {
-            this.positionPictureBox();
-            this.positionMainControls();
+            this.PositionPictureBox();
+            this.pictureBoxImage.Refresh();
             this.Rotator.Show();
         }
 
-        private void positionPictureBox()
+        private void PositionPictureBox()
         {
-            this.pictureBoxImage.Width = this.Width;
-            this.pictureBoxImage.Height = this.Height - 100;
+            this.pictureBoxImage.Width = this.ClientSize.Width;
+            this.pictureBoxImage.Height = this.ClientSize.Height;
             this.pictureBoxImage.Location = new System.Drawing.Point(0, 0);
         }
+        #endregion
 
-        private void positionMainControls()
+        #region Drag&Drop
+        private void MainWindow_DragDrop(object sender, DragEventArgs e)
         {
-            int locationX = (int)((this.Width - this.panelMainControls.Width) / 2);
-            int locationY = this.Height - this.panelMainControls.Height - 40;
-            this.panelMainControls.Location = new System.Drawing.Point(locationX, locationY);
+            string filename;
+            bool isValid = CheckDragAndDropItem(out filename, e);
+            
+            if (isValid)
+            {
+                FileInfo file = new FileInfo(filename);
+                if (file.Exists && this.AllowedExtensions.Contains(file.Extension.ToLower()))
+                {
+                    this.ChangeTitle("Loading...");
+                    this.loadRotator(file.DirectoryName, file.FullName);
+                }
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MainWindow_DragEnter(object sender, DragEventArgs e)
         {
-
+            string filename;
+            bool isValid = CheckDragAndDropItem(out filename, e);
+            
+            if (isValid)
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;            
         }
 
-        //private void MainWindow_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyValue.ToString() == "n")
-        //        this.Rotator.ShowNext();
+        private bool CheckDragAndDropItem(out string filename, DragEventArgs e)
+        {
+            filename = String.Empty;
+            bool isValid = false;
 
-        //    if (e.KeyValue.ToString() == "p")
-        //        this.Rotator.ShowPrevious();
-        //}
+            if ((e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            {
+                Array data = ((IDataObject)e.Data).GetData("FileName") as Array;
+                if (data != null)
+                {
+                    if ((data.Length == 1) && (data.GetValue(0) is String))
+                    {
+                        filename = ((string[])data)[0];
+                        if(this.AllowedExtensions.Contains(Path.GetExtension(filename).ToLower()))
+                        {
+                            isValid = true;
+                        }
+                    }
+                }
+            }
+
+            return isValid;
+        }
+        #endregion
+
+        #region Keyboard events
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.P || e.KeyCode == Keys.B)
+                this.Rotator.ShowPrevious();
+            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.N)
+                this.Rotator.ShowNext();
+        }
+        #endregion
     }
 }
