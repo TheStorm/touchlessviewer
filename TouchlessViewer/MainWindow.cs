@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
-using ComponentFactory.Krypton.Toolkit;
 
 namespace TouchlessViewer
 {
@@ -18,7 +17,6 @@ namespace TouchlessViewer
     {
         private ImageRotator Rotator;
         public List<string> AllowedExtensions;
-        private bool _rotatorLoaded = false;
 
         public MainWindow(string[] args)
         {
@@ -45,7 +43,7 @@ namespace TouchlessViewer
 
         private void ChangeTitle(string title)
         {
-            this.Text = "TouchLess Viewer - " + title;
+            this.Text = "TouchLessViewer - " + title;
         }
 
         private void loadRotator(string path)
@@ -66,7 +64,6 @@ namespace TouchlessViewer
                 this.Rotator.FindByFilename(filename);
 
             this.Rotator.Show();
-            this._rotatorLoaded = true;
         }
 
         #region Resizing and positioning of MainWindow & PictureBox
@@ -156,7 +153,7 @@ namespace TouchlessViewer
 
             if(this.Rotator != null)
                 dialog.SelectedPath = this.Rotator.ImagePath;
-            
+          
             DialogResult dResult = dialog.ShowDialog();
             if (dResult == DialogResult.OK)
             {
@@ -169,5 +166,11 @@ namespace TouchlessViewer
             Application.Exit();
         }
         #endregion
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutWindow aboutWin = new AboutWindow();
+            aboutWin.ShowDialog();
+        }
     }
 }
