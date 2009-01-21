@@ -22,12 +22,22 @@ namespace TouchlessViewer
         {
             InitializeComponent();
 
+            ImageRotator rot = new ImageRotator();
+
             /* check if argument is given and load corresponding file */
             if (args.Length == 1 && args[0] != "")
             {
                 tb_path.Text = Path.GetDirectoryName(args[0]);
                 loadDirectory(args[0]);
             }
+
+            rot.OnFirstImage += new ImageRotator.ImagePositionHandler(rot_OnFirstImage);
+
+        }
+
+        void rot_OnFirstImage()
+        {
+            throw new NotImplementedException();
         }
 
 

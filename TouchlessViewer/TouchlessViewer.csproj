@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageRotator\ImageRotator.cs" />
     <Compile Include="MyImage.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
