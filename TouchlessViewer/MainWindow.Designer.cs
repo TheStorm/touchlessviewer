@@ -36,6 +36,7 @@
             this.btn_next = new System.Windows.Forms.Button();
             this.btn_previous = new System.Windows.Forms.Button();
             this.panelMainControls = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
             this.panelMainControls.SuspendLayout();
             this.SuspendLayout();
@@ -109,6 +110,7 @@
             // 
             this.panelMainControls.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panelMainControls.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelMainControls.Controls.Add(this.button1);
             this.panelMainControls.Controls.Add(this.tb_path);
             this.panelMainControls.Controls.Add(this.btn_previous);
             this.panelMainControls.Controls.Add(this.lbl_path);
@@ -121,6 +123,16 @@
             this.panelMainControls.Size = new System.Drawing.Size(780, 55);
             this.panelMainControls.TabIndex = 7;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(503, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,6 +143,7 @@
             this.Controls.Add(this.pictureBoxImage);
             this.Name = "MainWindow";
             this.Text = "TouchlessViewer";
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyUp);
             this.Resize += new System.EventHandler(this.MainWindow_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
             this.panelMainControls.ResumeLayout(false);
@@ -149,6 +162,7 @@
         private System.Windows.Forms.Button btn_next;
         private System.Windows.Forms.Button btn_previous;
         private System.Windows.Forms.Panel panelMainControls;
+        private System.Windows.Forms.Button button1;
     }
 }
 
