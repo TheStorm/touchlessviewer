@@ -16,30 +16,44 @@ namespace TouchlessViewer
     public partial class MainWindow : KryptonForm
     {
         private ImageRotator Rotator;
+        public List<string> AllowedExtensions;
+        private bool _rotatorLoaded = false;
 
         public MainWindow(string[] args)
         {
             InitializeComponent();
 
-            /* check if argument is given and load corresponding file */
-            /*if (args.Length == 1 && args[0] != "")
-            {
-                tb_path.Text = Path.GetDirectoryName(args[0]);
-                loadDirectory(args[0]);
-            }*/
+            this.AllowedExtensions = new List<string>();
+            this.AllowedExtensions.Add(".jpg");
+            this.AllowedExtensions.Add(".png");
+            this.AllowedExtensions.Add(".gif");
+            this.AllowedExtensions.Add(".bmp");
 
-            this.Rotator = new ImageRotator();
-            this.Rotator.ImagePath = @"D:\Downloads\Wallpapers";
-            this.Rotator.AllowedExtensions.Add(".jpg");
-            this.Rotator.AllowedExtensions.Add(".png");
-            this.Rotator.AllowedExtensions.Add(".gif");
-            this.Rotator.AllowedExtensions.Add(".bmp");
-            this.Rotator.PictureBox = this.pictureBoxImage;
-            this.Rotator.LoadImages();
-            this.Rotator.Show();
+            //string filename = null;
+            if (args.Length == 1 && args[0] != "")
+            {
+                FileInfo file = new FileInfo(args[0]);
+                if (file.Exists && this.AllowedExtensions.Contains(file.Extension.ToLower()))
+                {
+                    this.loadRotator(file.DirectoryName, file.FullName);
+                }
+            }
         }
 
+        private void loadRotator(string path, string filename)
+        {
+            this.Rotator = new ImageRotator();
+            this.Rotator.ImagePath = path;
+            this.Rotator.AllowedExtensions = this.AllowedExtensions;
+            this.Rotator.PictureBox = this.pictureBoxImage;
+            this.Rotator.LoadImages();
 
+            if (filename != null)
+                this.Rotator.FindByFilename(filename);
+
+            this.Rotator.Show();
+            this._rotatorLoaded = true;
+        }
 
         private void btn_path_Click(object sender, EventArgs e)
         {

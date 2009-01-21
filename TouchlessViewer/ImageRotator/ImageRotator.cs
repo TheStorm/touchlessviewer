@@ -106,6 +106,19 @@ namespace TouchlessViewer
             }
         }
 
+        public void FindByFilename(string filename)
+        {
+            int index = this.Images.FindIndex(image => image.Filename == filename);
+            if (index < 0)
+            {
+                throw new Exception("Filename not found in image list.");
+            }
+            else
+            {
+                this._imageIndex = index;
+            }
+        }
+
         public void Show()
         {
             this._tempImage = this.Images[this._imageIndex].Image;

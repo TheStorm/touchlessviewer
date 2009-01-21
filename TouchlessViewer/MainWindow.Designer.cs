@@ -143,7 +143,6 @@
             this.Controls.Add(this.pictureBoxImage);
             this.Name = "MainWindow";
             this.Text = "TouchlessViewer";
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyUp);
             this.Resize += new System.EventHandler(this.MainWindow_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
             this.panelMainControls.ResumeLayout(false);
