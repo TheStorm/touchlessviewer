@@ -42,8 +42,8 @@ namespace TouchlessViewer
         /// <summary>
         /// List containing the images.
         /// </summary>
-        protected List<RotatorImage> _images;
-        public List<RotatorImage> Images
+        protected List<string> _images;
+        public List<string> Images
         {
             get { return this._images; }
             set { this._images = value; }
@@ -109,7 +109,7 @@ namespace TouchlessViewer
         /// </summary>
         public void LoadImages()
         {
-            this._images = new List<RotatorImage>();
+            this.Images = new List<string>();
             if (this._imagePath == "" || !Directory.Exists(this._imagePath))
                 throw new ArgumentException("Path to image directory is invalid");
 
@@ -131,7 +131,7 @@ namespace TouchlessViewer
                 FileInfo file = new FileInfo(filename);
                 if (this.AllowedExtensions.Contains(file.Extension.ToLower()))
                 {
-                    this.Images.Add(new RotatorImage(file.FullName, Image.FromFile(file.FullName)));
+                    this.Images.Add(filename);
                 }
             }
         }
@@ -142,8 +142,7 @@ namespace TouchlessViewer
         /// <param name="filename">filename to look for</param>
         public void FindByFilename(string filename)
         {
-            int index = this.Images.FindIndex(image => image.Filename == filename);
-            Console.WriteLine(index);
+            int index = this.Images.FindIndex(image => image == filename);
             if (index < 0)
             {
                 throw new Exception("Filename not found in image list.");
@@ -161,7 +160,7 @@ namespace TouchlessViewer
         {
             if (this.Images.Count > 0)
             {
-                this._tempImage = this.Images[this._imageIndex].Image;
+                this._tempImage = Image.FromFile(this.Images[this._imageIndex]);
                 this.ScaleTempImage();
                 this.SwitchImage();
                 this.UpdateFormTitle();
