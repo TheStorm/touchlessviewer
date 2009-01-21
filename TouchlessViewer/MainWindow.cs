@@ -48,6 +48,11 @@ namespace TouchlessViewer
             this.Text = "TouchLess Viewer - " + title;
         }
 
+        private void loadRotator(string path)
+        {
+            this.loadRotator(path, null);
+        }
+
         private void loadRotator(string path, string filename)
         {
             this.Rotator = new ImageRotator();
@@ -75,8 +80,8 @@ namespace TouchlessViewer
         private void PositionPictureBox()
         {
             this.pictureBoxImage.Width = this.ClientSize.Width;
-            this.pictureBoxImage.Height = this.ClientSize.Height;
-            this.pictureBoxImage.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxImage.Height = this.ClientSize.Height - this.MainMenuStrip.Height;
+            this.pictureBoxImage.Location = new System.Drawing.Point(0, this.MainMenuStrip.Height);
         }
         #endregion
 
@@ -140,6 +145,28 @@ namespace TouchlessViewer
                 this.Rotator.ShowPrevious();
             else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.N)
                 this.Rotator.ShowNext();
+        }
+        #endregion
+
+        #region Mainmenu
+        private void fileChangeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Please select a directory";
+
+            if(this.Rotator != null)
+                dialog.SelectedPath = this.Rotator.ImagePath;
+            
+            DialogResult dResult = dialog.ShowDialog();
+            if (dResult == DialogResult.OK)
+            {
+                this.loadRotator(dialog.SelectedPath);
+            }            
+        }
+
+        private void fileQuitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
         #endregion
     }

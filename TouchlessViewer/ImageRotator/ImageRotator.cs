@@ -159,10 +159,13 @@ namespace TouchlessViewer
         /// </summary>
         public void Show()
         {
-            this._tempImage = this.Images[this._imageIndex].Image;
-            this.ScaleTempImage();
-            this.SwitchImage();
-            this.UpdateFormTitle();
+            if (this.Images.Count > 0)
+            {
+                this._tempImage = this.Images[this._imageIndex].Image;
+                this.ScaleTempImage();
+                this.SwitchImage();
+                this.UpdateFormTitle();
+            }
         }
 
         /// <summary>

@@ -29,18 +29,100 @@
         private void InitializeComponent()
         {
             this.pictureBoxImage = new System.Windows.Forms.PictureBox();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileChangeDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileQuitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applicationSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cameraSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxImage
             // 
             this.pictureBoxImage.BackColor = System.Drawing.Color.Black;
-            this.pictureBoxImage.Location = new System.Drawing.Point(12, 12);
+            this.pictureBoxImage.Location = new System.Drawing.Point(12, 121);
             this.pictureBoxImage.Name = "pictureBoxImage";
             this.pictureBoxImage.Size = new System.Drawing.Size(779, 395);
             this.pictureBoxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxImage.TabIndex = 4;
             this.pictureBoxImage.TabStop = false;
+            // 
+            // mainMenuStrip
+            // 
+            this.mainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.mainMenuStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.mainMenuStrip.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.toolStripMenuItem1});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(803, 24);
+            this.mainMenuStrip.TabIndex = 5;
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileChangeDirectoryToolStripMenuItem,
+            this.fileQuitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // fileChangeDirectoryToolStripMenuItem
+            // 
+            this.fileChangeDirectoryToolStripMenuItem.Name = "fileChangeDirectoryToolStripMenuItem";
+            this.fileChangeDirectoryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.fileChangeDirectoryToolStripMenuItem.Text = "Change Directory";
+            this.fileChangeDirectoryToolStripMenuItem.Click += new System.EventHandler(this.fileChangeDirectoryToolStripMenuItem_Click);
+            // 
+            // fileQuitToolStripMenuItem
+            // 
+            this.fileQuitToolStripMenuItem.Name = "fileQuitToolStripMenuItem";
+            this.fileQuitToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.fileQuitToolStripMenuItem.Text = "Quit";
+            this.fileQuitToolStripMenuItem.Click += new System.EventHandler(this.fileQuitToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.applicationSettingsToolStripMenuItem,
+            this.cameraSettingsToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // applicationSettingsToolStripMenuItem
+            // 
+            this.applicationSettingsToolStripMenuItem.Name = "applicationSettingsToolStripMenuItem";
+            this.applicationSettingsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.applicationSettingsToolStripMenuItem.Text = "Application";
+            // 
+            // cameraSettingsToolStripMenuItem
+            // 
+            this.cameraSettingsToolStripMenuItem.Name = "cameraSettingsToolStripMenuItem";
+            this.cameraSettingsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cameraSettingsToolStripMenuItem.Text = "Camera";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
+            this.toolStripMenuItem1.Text = "?";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // MainWindow
             // 
@@ -50,19 +132,33 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(803, 714);
             this.Controls.Add(this.pictureBoxImage);
+            this.Controls.Add(this.mainMenuStrip);
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "MainWindow";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainWindow_DragEnter);
             this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxImage;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fileChangeDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileQuitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applicationSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cameraSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
