@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,6 +14,7 @@ namespace TouchlessViewer
 {
     public partial class MainWindow : Form
     {
+        private TouchlessManager Touchless;
         private ImageRotator Rotator;
         public List<string> AllowedExtensions;
 
@@ -39,6 +39,8 @@ namespace TouchlessViewer
                     this.loadRotator(file.DirectoryName, file.FullName);
                 }
             }
+
+            this.loadTouchless();
         }
 
         private void ChangeTitle(string title)
@@ -58,6 +60,8 @@ namespace TouchlessViewer
             this.Rotator.AllowedExtensions = this.AllowedExtensions;
             this.Rotator.PictureBox = this.pictureBoxImage;
             this.Rotator.FormTitle = this.ChangeTitle;
+
+            this.ChangeTitle("Loading...");
             this.Rotator.LoadImages();
 
             if (filename != null)
@@ -66,19 +70,23 @@ namespace TouchlessViewer
             this.Rotator.Show();
         }
 
+        private void loadTouchless()
+        {
+            this.Touchless = new TouchlessManager();
+        }
+
         #region Resizing and positioning of MainWindow & PictureBox
         private void MainWindow_ResizeBegin(object sender, EventArgs e)
         {
             // avoid "jumping around" when image is centered before resizing
-            this.Rotator.PictureBox.SizeMode = PictureBoxSizeMode.Normal;
+            this.pictureBoxImage.SizeMode = PictureBoxSizeMode.Normal;
         }
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             this.PositionPictureBox();
-            this.Rotator.PictureBox.Refresh();
             this.Rotator.Show();
-            this.Rotator.PictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
+            this.pictureBoxImage.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
         private void PositionPictureBox()
@@ -86,6 +94,7 @@ namespace TouchlessViewer
             this.pictureBoxImage.Width = this.ClientSize.Width;
             this.pictureBoxImage.Height = this.ClientSize.Height - this.MainMenuStrip.Height - this.statusStrip.Height;
             this.pictureBoxImage.Location = new System.Drawing.Point(0, this.MainMenuStrip.Height);
+            this.pictureBoxImage.Refresh();
         }
         #endregion
 
@@ -98,7 +107,7 @@ namespace TouchlessViewer
             if (isValid)
             {
                 FileInfo file = new FileInfo(filename);
-                if (file.Exists && this.AllowedExtensions.Contains(file.Extension.ToLower()))
+                if (file.Exists)
                 {
                     this.ChangeTitle("Loading...");
                     this.loadRotator(file.DirectoryName, file.FullName);
@@ -191,6 +200,5 @@ namespace TouchlessViewer
             aboutWindow.ShowDialog();
         }
         #endregion
-
     }
 }
