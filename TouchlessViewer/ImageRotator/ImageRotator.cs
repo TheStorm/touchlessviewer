@@ -256,6 +256,10 @@ namespace TouchlessViewer
             int Height = this.PictureBox.Height;
             int sourceWidth = this._tempImage.Width;
             int sourceHeight = this._tempImage.Height;
+
+            if (Width == sourceWidth && Height == sourceHeight)
+                return;
+
             int sourceX = 0;
             int sourceY = 0;
             int destX = 0;
