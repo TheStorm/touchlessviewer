@@ -9,7 +9,7 @@ namespace TouchlessViewer
     {
         public static void ShowError(string message)
         {
-            MessageBox.Show(message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
