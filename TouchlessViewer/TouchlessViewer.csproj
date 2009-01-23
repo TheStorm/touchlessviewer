@@ -112,6 +112,7 @@
     <Compile Include="CameraSettingsWindow.Designer.cs">
       <DependentUpon>CameraSettingsWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Comparer\StringLogicalComparer.cs" />
     <Compile Include="Comparer\NumericComparer.cs" />
     <Compile Include="ImageRotator\RotatorImageComparer.cs" />
