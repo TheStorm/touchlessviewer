@@ -10,12 +10,47 @@ namespace TouchlessViewer
 {
     class TouchlessManager
     {
-        protected bool _addingMarker = false;
-        protected static float _markerRadius;
-        protected static Point _markerCenter;
-        protected static Marker _markerSelected;
-        protected static int _addedMarkerCount = 0;
-        
+        #region object building
+        protected static TouchlessManager _instance = null;
+        protected static object _lock = new object();
+
+        protected TouchlessManager()
+        {
+            this.Touchless = new TouchlessMgr();
+            this.checkCameras();
+        }
+
+        /// <summary>
+        /// Thread-safe Singleton
+        /// </summary>
+        public static TouchlessManager Instance
+        {
+            get
+            {
+                lock (TouchlessManager._lock)
+                {
+                    if (TouchlessManager._instance == null)
+                    {
+                        TouchlessManager._instance = new TouchlessManager();
+                    }
+
+                    return TouchlessManager._instance;
+                }
+            }
+        }
+        #endregion
+
+        public bool _addingMarker = false;
+        public float _markerRadius;
+        public Point _markerCenter;
+        public Marker _markerSelected;
+        public int _addedMarkerCount = 0;
+        public DateTime _dtFrameLast;
+        public int _nFrameCount = 0;
+        public Image _latestFrame;
+        public bool _drawSelectionAdornment = false;
+        public bool _updatingMarkerUI = false;
+
         protected TouchlessMgr _touchless;
         public TouchlessMgr Touchless
         {
@@ -23,16 +58,10 @@ namespace TouchlessViewer
             set { this._touchless = value; }
         }
 
-        public TouchlessManager()
+        protected void checkCameras()
         {
-            this.Touchless = new TouchlessMgr();
-            this.loadCameras();
-        }
-
-        protected void loadCameras()
-        {
-            foreach (Camera cam in this.Touchless.Cameras)
-                MessageBox.Show(cam.ToString());
+            if (this.Touchless.Cameras.Count < 1)
+                Common.ShowError("No cameras found. Touchless functionality is be disabled.");   
         }
     }
 }
