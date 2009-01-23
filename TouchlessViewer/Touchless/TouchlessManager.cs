@@ -43,7 +43,7 @@ namespace TouchlessViewer
         public bool _addingMarker = false;
         public float _markerRadius;
         public Point _markerCenter;
-        public Marker _markerSelected;
+        public Marker _currentMarker;
         public int _addedMarkerCount = 0;
         public DateTime _dtFrameLast;
         public int _nFrameCount = 0;

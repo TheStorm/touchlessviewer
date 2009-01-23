@@ -18,6 +18,10 @@ namespace TouchlessViewer
         public List<string> AllowedExtensions;
         private TouchlessManager tMgr = TouchlessManager.Instance;
 
+        private ApplicationSettingsWindow applicationSettings = new ApplicationSettingsWindow();
+        private CameraSettingsWindow cameraSettings = new CameraSettingsWindow();
+        private AboutWindow aboutWindow = new AboutWindow();
+
         public MainWindow(string[] args)
         {
             InitializeComponent();
@@ -177,22 +181,57 @@ namespace TouchlessViewer
             Application.Exit();
         }
 
+
+
         private void applicationSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ApplicationSettingsWindow applicationSettings = new ApplicationSettingsWindow();
-            applicationSettings.ShowDialog();
+            this.applicationSettings.ShowDialog();
         }
 
         private void cameraSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CameraSettingsWindow cameraSettings = new CameraSettingsWindow();
-            cameraSettings.FormClosed += new FormClosedEventHandler(cameraSettings_FormClosed);
-            cameraSettings.ShowDialog();
+            this.cameraSettings.FormClosed += new FormClosedEventHandler(cameraSettings_FormClosed);
+            this.cameraSettings.ShowDialog();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.aboutWindow.ShowDialog();
         }
 
         private void cameraSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
+            this.setTouchlessEvents();
             this.updateStatusBar();
+        }
+
+        private void setTouchlessEvents()
+        {
+            if (this.tMgr.Touchless.CurrentCamera != null && this.tMgr.Touchless.MarkerCount == 1)
+            {
+                if (this.tMgr.Touchless.Markers[0] != this.tMgr._currentMarker)
+                {
+                    this.tMgr._currentMarker = this.tMgr.Touchless.Markers[0];
+                    //this.tMgr._currentMarker.OnChange += new EventHandler<TouchlessLib.MarkerEventArgs>(_currentMarker_OnChange);
+                    this.pictureBoxImage.Paint += new PaintEventHandler(pictureBoxImage_Paint);
+                }
+            }
+            else
+            {
+                this.pictureBoxImage.Paint -= new PaintEventHandler(pictureBoxImage_Paint);
+            }
+        }
+
+        void pictureBoxImage_Paint(object sender, PaintEventArgs e)
+        {
+            //Pen pen = new Pen(Brushes.Red, 1);
+            //e.Graphics.DrawEllipse(pen, this.tMgr._markerCenter.X - this.tMgr._markerRadius, this.tMgr._markerCenter.Y - this.tMgr._markerRadius, 2 * this.tMgr._markerRadius, 2 * this.tMgr._markerRadius);
+            //e.Graphics.DrawEllipse(pen, this.tMgr._currentMarker.CurrentData.X, this.tMgr._currentMarker.CurrentData.Y, 20, 20);
+        }
+
+        void _currentMarker_OnChange(object sender, TouchlessLib.MarkerEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         private void updateStatusBar()
@@ -216,11 +255,7 @@ namespace TouchlessViewer
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutWindow aboutWindow = new AboutWindow();
-            aboutWindow.ShowDialog();
-        }
+
         #endregion
     }
 }
