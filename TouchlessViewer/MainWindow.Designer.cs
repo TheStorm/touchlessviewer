@@ -39,7 +39,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripCameraStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripMarkerStatus = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -134,17 +135,22 @@
             this.statusStrip.BackColor = System.Drawing.Color.WhiteSmoke;
             this.statusStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
+            this.toolStripCameraStatus,
+            this.toolStripMarkerStatus});
             this.statusStrip.Location = new System.Drawing.Point(0, 692);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(803, 22);
             this.statusStrip.TabIndex = 6;
             // 
-            // toolStripStatusLabel
+            // toolStripCameraStatus
             // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(191, 17);
-            this.toolStripStatusLabel.Text = "No Camera loaded. No markers set";
+            this.toolStripCameraStatus.Name = "toolStripCameraStatus";
+            this.toolStripCameraStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripMarkerStatus
+            // 
+            this.toolStripMarkerStatus.Name = "toolStripMarkerStatus";
+            this.toolStripMarkerStatus.Size = new System.Drawing.Size(0, 17);
             // 
             // MainWindow
             // 
@@ -186,7 +192,8 @@
         private System.Windows.Forms.ToolStripMenuItem cameraSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripCameraStatus;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripMarkerStatus;
     }
 }
 

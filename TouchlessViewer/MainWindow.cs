@@ -14,13 +14,9 @@ namespace TouchlessViewer
 {
     public partial class MainWindow : Form
     {
-        private TouchlessManager Touchless;
         private ImageRotator Rotator;
         public List<string> AllowedExtensions;
-
-        private Form ApplicationSettingsWindow;
-        private Form CameraSettingWindow;
-        private Form AboutWindow;
+        private TouchlessManager tMgr = TouchlessManager.Instance;
 
         public MainWindow(string[] args)
         {
@@ -44,8 +40,7 @@ namespace TouchlessViewer
                 }
             }
 
-            this.loadTouchless();
-            this.loadWindows();
+            this.updateStatusBar();
         }
 
         private void ChangeTitle(string title)
@@ -73,11 +68,6 @@ namespace TouchlessViewer
                 this.Rotator.FindByFilename(filename);
 
             this.Rotator.Show();
-        }
-
-        private void loadTouchless()
-        {
-            this.Touchless = new TouchlessManager();
         }
 
         #region Resizing and positioning of MainWindow & PictureBox
@@ -196,7 +186,34 @@ namespace TouchlessViewer
         private void cameraSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CameraSettingsWindow cameraSettings = new CameraSettingsWindow();
+            cameraSettings.FormClosed += new FormClosedEventHandler(cameraSettings_FormClosed);
             cameraSettings.ShowDialog();
+        }
+
+        private void cameraSettings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.updateStatusBar();
+        }
+
+        private void updateStatusBar()
+        {
+            if (this.tMgr.Touchless.CurrentCamera != null)
+            {
+                this.toolStripCameraStatus.Text = "Camera: " + this.tMgr.Touchless.CurrentCamera.ToString() + ".";
+            }
+            else
+            {
+                this.toolStripCameraStatus.Text = "No Camera loaded.";
+            }
+
+            if (this.tMgr.Touchless.MarkerCount > 0)
+            {
+                this.toolStripMarkerStatus.Text = "Marker ready.";
+            }
+            else
+            {
+                this.toolStripMarkerStatus.Text = "No Markers set.";
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
