@@ -18,6 +18,10 @@ namespace TouchlessViewer
         private ImageRotator Rotator;
         public List<string> AllowedExtensions;
 
+        private Form ApplicationSettingsWindow;
+        private Form CameraSettingWindow;
+        private Form AboutWindow;
+
         public MainWindow(string[] args)
         {
             InitializeComponent();
@@ -41,6 +45,7 @@ namespace TouchlessViewer
             }
 
             this.loadTouchless();
+            this.loadWindows();
         }
 
         private void ChangeTitle(string title)

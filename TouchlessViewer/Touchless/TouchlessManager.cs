@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing.Imaging;
 using System.Drawing;
+using System.Windows.Forms;
 using TouchlessLib;
 
 namespace TouchlessViewer
@@ -25,6 +26,13 @@ namespace TouchlessViewer
         public TouchlessManager()
         {
             this.Touchless = new TouchlessMgr();
+            this.loadCameras();
+        }
+
+        protected void loadCameras()
+        {
+            foreach (Camera cam in this.Touchless.Cameras)
+                MessageBox.Show(cam.ToString());
         }
     }
 }
