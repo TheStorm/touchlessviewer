@@ -61,7 +61,7 @@ namespace TouchlessViewer
         protected void checkCameras()
         {
             if (this.Touchless.Cameras.Count < 1)
-                Common.ShowError("No cameras found. Touchless functionality is be disabled.");   
+                Common.ShowError("Webcam not found. Touchless functionality is be disabled.");   
         }
     }
 }
