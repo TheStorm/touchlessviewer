@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutWindow));
             this.aboutBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -39,7 +38,8 @@
             this.aboutBox.Name = "aboutBox";
             this.aboutBox.Size = new System.Drawing.Size(259, 239);
             this.aboutBox.TabIndex = 0;
-            this.aboutBox.Text = resources.GetString("aboutBox.Text");
+            this.aboutBox.Text = "\r\nTouchlessviewer v 0.6b patch 9 fix 3\r\n\r\ncoded by\r\n\r\nmaff, The Storm, Knox, Heat" +
+                "hcliff & Aeroangel\r\n\r\nvisit http://touchlessviewer.ailoo.net\r";
             // 
             // AboutWindow
             // 
