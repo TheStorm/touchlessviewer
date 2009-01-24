@@ -10,6 +10,7 @@ namespace TouchlessViewer
     {
         public RotatorImage()
         {
+            //wieso ist hier eine leere Funktion?!
         }
 
         public RotatorImage(string filename, Image image)
